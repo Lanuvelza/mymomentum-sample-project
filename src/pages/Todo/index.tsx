@@ -81,11 +81,7 @@ const Todo = memo(() => {
             <Typography variant="h4">Description: {todo.description}</Typography>
           </Slide>
           <Fade in={true} timeout={2000}>
-            <Link 
-              href='/' 
-              color='primary' 
-              underline='none' 
-            >
+            <Link href='/' underline='none'>
               <Button variant="outlined" className={classes.returnButton} >
                 Back
               </Button>
