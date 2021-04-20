@@ -20,7 +20,7 @@ const useStyles = makeStyles({
     flexDirection: 'row',
     justifyContent: 'space-between',
     background: 'lightgreen',
-    color: 'grey',
+    color: 'darkgrey',
   },
 
   uncompleted: {
