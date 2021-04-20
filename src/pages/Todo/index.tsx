@@ -8,8 +8,22 @@ import {
 } from "../../generated/graphql";
 import {useRouter} from "next/router";
 import Head from "next/head";
-import {Grid} from "@material-ui/core";
+import {Button, CircularProgress, Fade, Grid, Link, makeStyles, Slide, Typography} from "@material-ui/core";
 
+
+const useStyles = makeStyles({
+  returnButton: {
+    display: 'flex',
+    justifyContent: 'center',
+    marginTop: '5em',
+    width: '7em',
+    margin: 'auto',
+  }
+})
+
+const Loading = () => {
+  return ( <CircularProgress /> )
+}
 
 /**
  * Display and interact with a single Todo.
@@ -30,6 +44,8 @@ const Todo = memo(() => {
   const [createComment] = useCreateCommentMutation();
   const [markTodo] = useMarkTodoMutation();
 
+  const classes = useStyles();
+
   return (
     <>
       <Head>
@@ -37,8 +53,45 @@ const Todo = memo(() => {
       </Head>
       <Grid container direction="column" spacing={2}>
         <Grid item>
-          <Title>A ToDo</Title>
+          <Fade in={true} timeout={2000}>
+            <Title >A ToDo</Title>
+          </Fade>
         </Grid>
+        {todo ? 
+        <Grid>
+          <Slide 
+            direction="right" 
+            in={true}
+            timeout={2000}
+          > 
+            <Typography variant="h2">Task: {todo.title}</Typography> 
+          </Slide>
+          <Slide
+            direction="left"
+            in={true}
+            timeout={2000}
+          >
+            <Typography variant="h6">Date: {todo.created_at.slice(0,10)}</Typography>
+          </Slide>
+          <Slide 
+            direction="right" 
+            in={true}
+            timeout={2000}
+          >
+            <Typography variant="h4">Description: {todo.description}</Typography>
+          </Slide>
+          <Fade in={true} timeout={2000}>
+            <Link 
+              href='/' 
+              color='primary' 
+              underline='none' 
+            >
+              <Button variant="outlined" className={classes.returnButton} >
+                Back
+              </Button>
+            </Link>
+          </Fade>
+        </Grid> : <Loading />}
       </Grid>
     </>
   );
